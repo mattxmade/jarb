@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Excalidraw } from "@excalidraw/excalidraw";
 
+// TODO => lazy-load Excalidraw
+
 function App() {
     const [viewText, setViewText] = useState("");
 
