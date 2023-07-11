@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+    MouseEventHandler,
+    useCallback,
+    useEffect,
+    useState,
+} from "react";
 import { Excalidraw } from "@excalidraw/excalidraw";
 
 // TODO => lazy-load Excalidraw
@@ -7,9 +12,11 @@ function App() {
     const [viewText, setViewText] = useState("");
 
     const handleTextSelection = useCallback(
-        (e) => {
-            const selection = e.view.getSelection().toString();
-            if (!selection.length) return;
+        (e: React.UIEvent<HTMLElement, MouseEvent>) => {
+            const view = e.view as unknown as Window;
+
+            const selection = view.getSelection()?.toString();
+            if (!selection?.length) return;
 
             setViewText(selection);
         },
