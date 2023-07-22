@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+    PropsWithChildren,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import { Excalidraw, restoreElements } from "@excalidraw/excalidraw";
 
 import {
@@ -26,7 +32,14 @@ import {
 
 import { nanoid } from "nanoid";
 
-function App() {
+import { ReedSearchResponse } from "../types";
+
+type AppProps = {
+    jobSearchResponse?: ReedSearchResponse;
+    children?: React.ReactNode;
+};
+
+function App(props: AppProps) {
     const allowRef = useRef(false);
     const lastTextRef = useRef<string | null>(null);
     const lastContainerRef = useRef<string | null>(null);
@@ -253,32 +266,96 @@ function App() {
 
     return (
         <div className="container">
-            <section>
-                <h1>Job View</h1>
+            <section className="section--job-view">
+                {/* <h1>{props?.user?.name ?? "____"}'s Job View</h1> */}
+                {props.children}
 
-                <p onMouseUp={handleTextSelection}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Facere doloremque sit vero magni atque dignissimos
-                    repellendus, exercitationem eum consectetur facilis nam ut
-                    accusamus consequuntur iure corporis, dolore nemo hic rem!
-                    Quo cum consectetur cupiditate magnam perspiciatis.
-                    Voluptatibus adipisci quod magnam ex dignissimos iusto!
-                    Nobis expedita, nihil cupiditate assumenda odio ducimus
-                    aperiam dolorum illum asperiores optio aut corporis
-                    repudiandae reprehenderit ab. Ex, modi eum itaque, id
-                    similique hic aliquam tenetur mollitia quisquam voluptates
-                    est sunt atque quidem rerum exercitationem necessitatibus
-                    perspiciatis doloremque aperiam, ipsum qui! Tempora minus
-                    numquam mollitia! Earum, rem? Est hic reiciendis officia
-                    libero fugit commodi velit, at, minima dolore obcaecati
-                    aliquam exercitationem placeat. Fuga beatae laudantium unde
-                    dolores possimus ad voluptates earum, facere hic nemo!
-                    Nihil, libero optio. Expedita omnis sapiente porro, impedit
-                    dignissimos ipsum, voluptatem vitae pariatur distinctio quam
-                    voluptates eum? Odio quos ratione velit ut modi nostrum
-                    itaque asperiores? Neque veniam dolores ullam error.
-                    Placeat, illo.
-                </p>
+                {props.jobSearchResponse?.results.length ? (
+                    <>
+                        <p className="search-results-total">
+                            {props.jobSearchResponse.totalResults === 1
+                                ? "1 result"
+                                : `${props.jobSearchResponse.totalResults} results`}
+                        </p>
+                        <ul className="job-search-results">
+                            {props.jobSearchResponse.results.map(
+                                (jobSearchResult) => (
+                                    <li
+                                        key={jobSearchResult.jobId}
+                                        className="job-result-card"
+                                    >
+                                        <h3
+                                            className="job-result-card__job-title"
+                                            onMouseUp={handleTextSelection}
+                                        >
+                                            {jobSearchResult.jobTitle}{" "}
+                                            <span
+                                                className="job-result-card__job-id"
+                                                onMouseUp={handleTextSelection}
+                                            >
+                                                {jobSearchResult.jobId}
+                                            </span>
+                                        </h3>
+
+                                        <div className="job-result-card__posted-by-cont">
+                                            <p onMouseUp={handleTextSelection}>
+                                                {jobSearchResult.date}{" "}
+                                            </p>
+                                            <p onMouseUp={handleTextSelection}>
+                                                {jobSearchResult.employerName}
+                                            </p>
+                                        </div>
+
+                                        {jobSearchResult.minimumSalary &&
+                                        jobSearchResult.maximumSalary ? (
+                                            <p
+                                                className="job-result-card__salary"
+                                                onMouseUp={handleTextSelection}
+                                            >
+                                                <i className="fa-solid fa-hand-holding-dollar" />{" "}
+                                                {`£${jobSearchResult.minimumSalary}-£${jobSearchResult.maximumSalary}`}
+                                            </p>
+                                        ) : null}
+
+                                        <p
+                                            className="job-result-card__location"
+                                            onMouseUp={handleTextSelection}
+                                        >
+                                            <i className="fa-solid fa-location-dot" />{" "}
+                                            {jobSearchResult.locationName}
+                                        </p>
+                                        <p
+                                            className="job-result-card__description"
+                                            onMouseUp={handleTextSelection}
+                                        >
+                                            {jobSearchResult.jobDescription}
+                                        </p>
+
+                                        <div className="job-result-card__etc-details-cont">
+                                            <p onMouseUp={handleTextSelection}>
+                                                Expires:{" "}
+                                                {jobSearchResult.expirationDate}
+                                            </p>
+                                            <p onMouseUp={handleTextSelection}>
+                                                Applications:{" "}
+                                                {jobSearchResult.applications}
+                                            </p>
+                                        </div>
+
+                                        <p className="job-result-card__job-url">
+                                            <a
+                                                href={jobSearchResult.jobUrl}
+                                                referrerPolicy="no-referrer"
+                                            >
+                                                more info
+                                            </a>
+                                        </p>
+                                    </li>
+                                )
+                            )}
+                        </ul>
+                    </>
+                ) : null}
             </section>
 
             <section className="note-view">
