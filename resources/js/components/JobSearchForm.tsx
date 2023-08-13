@@ -22,10 +22,7 @@ type AppProps = {
 };
 
 export default function JobSearchForm(props: AppProps) {
-    if (props.searchResponse) console.log(props.searchResponse);
     const { errors } = usePage().props;
-
-    console.log(errors);
 
     const formRef = useRef<HTMLFormElement>(null);
     const [values, setValues] = useState<JobSearchFields>(restoreSearchFields);
@@ -79,8 +76,6 @@ export default function JobSearchForm(props: AppProps) {
             let newQuery = "";
             let canSearch = true;
 
-            console.table(values);
-
             const searchFields = {} as JobSearchFields;
             const inputs = formRef.current?.querySelectorAll("input");
             const selectors = formRef.current?.querySelectorAll("select");
@@ -99,7 +94,7 @@ export default function JobSearchForm(props: AppProps) {
                         inputError.errors = [...inputError.errors, "language"];
                     }
 
-                    // add inputError and bump state | sets error boundaries for current input
+                    // add inputError and update state | sets error boundaries for current input
                     formErrorMessages.length
                         ? setFormErrorMessages((prevFormErrors) => [
                               ...[...prevFormErrors]
@@ -130,17 +125,22 @@ export default function JobSearchForm(props: AppProps) {
                             break;
 
                         case "checkbox":
-                            input.value === "on"
+                            const checkbox = input as HTMLInputElement;
+                            checkbox.checked
                                 ? (newQuery += `${input.name}=true&`) &&
                                   (searchFields[input.name] = true)
                                 : null;
                             break;
+
+                        case "select-one":
+                            newQuery += `${input.name}=${input.value}&`;
+                            searchFields[input.name] = input.value;
                     }
                 }
             });
 
             if (!newQuery.length || !canSearch) return;
-            // alert if all fields are empty
+            // TODO: alert user if all fields are empty
 
             newQuery = newQuery.endsWith("&")
                 ? newQuery.slice(0, newQuery.length - 1)
@@ -168,19 +168,7 @@ export default function JobSearchForm(props: AppProps) {
         setShowForm(!showForm);
     };
 
-    const [formHeight, setFormHeight] = useState<string>();
-
-    if (formRef.current && !formHeight) {
-        const delay = setTimeout(() => {
-            clearTimeout(delay);
-            if (!formRef.current) return;
-
-            setFormHeight(getComputedStyle(formRef.current).height);
-        }, 10);
-    }
-
     if (props.searchResponse?.results && router.restore("minimiseForm")) {
-        console.log("closing form");
         router.remember(undefined, "minimiseForm");
 
         if (!showForm) return;
@@ -221,7 +209,7 @@ export default function JobSearchForm(props: AppProps) {
                 name="search"
                 style={{
                     transition: "0.4s",
-                    height: showForm ? formHeight : "9rem",
+                    height: showForm ? "763px" : "9rem",
                     overflowY: "hidden",
                 }}
             >
@@ -292,7 +280,9 @@ export default function JobSearchForm(props: AppProps) {
                             name="locationName"
                             value={locationName ?? ""}
                             placeholder={
-                                !locationName ? "Enter a location" : ""
+                                !locationName
+                                    ? "Enter a location or postcode"
+                                    : ""
                             }
                             onChange={handleTextInput}
                         />
@@ -301,7 +291,7 @@ export default function JobSearchForm(props: AppProps) {
                     {/*Distance*/}
                     <label htmlFor="distanceFromLocation">
                         <p>distance</p>
-                        <select defaultValue="10">
+                        <select name="distanceFromLocation" defaultValue="10">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="3">3</option>
