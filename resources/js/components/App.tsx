@@ -1,10 +1,4 @@
-import React, {
-    PropsWithChildren,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Excalidraw, restoreElements } from "@excalidraw/excalidraw";
 
 import {
@@ -18,15 +12,7 @@ import {
     ExcalidrawTextElement,
 } from "@excalidraw/excalidraw/types/element/types";
 
-import {
-    getBoundTextElement,
-    getBoundTextMaxWidth,
-    getContainerElement,
-    measureText,
-    normalizeText,
-    redrawTextBoundingBox,
-    wrapText,
-} from "./excalidraw/src/element/textElement";
+import { redrawTextBoundingBox } from "./excalidraw/src/element/textElement";
 
 // TODO => lazy-load Excalidraw
 
@@ -43,6 +29,7 @@ function App(props: AppProps) {
     const allowRef = useRef(false);
     const lastTextRef = useRef<string | null>(null);
     const lastContainerRef = useRef<string | null>(null);
+    const jobSearchSectionRef = useRef<HTMLElement>(null);
 
     const [viewText, setViewText] = useState("");
 
@@ -67,8 +54,6 @@ function App(props: AppProps) {
             appState: AppState,
             files: BinaryFiles
         ) => {
-            console.dir(appState);
-
             if (allowRef.current && excalidrawAPI) {
                 const elements = excalidrawElements;
 
@@ -264,10 +249,62 @@ function App(props: AppProps) {
         }, 10);
     }, [viewText]);
 
+    const [jobSectionVisibility, setJobSectionVisibility] = useState(
+        window.innerWidth > 1203 ? true : false
+    );
+
+    const handleAriaControls = () => {
+        window.innerWidth > 1203
+            ? setJobSectionVisibility(true)
+            : setJobSectionVisibility(false);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", handleAriaControls);
+
+        return () => {
+            window.removeEventListener("resize", handleAriaControls);
+        };
+    }, []);
+
     return (
         <div className="container">
-            <section className="section--job-view">
+            <button
+                className="job-search--open"
+                aria-controls="job-view"
+                aria-expanded={jobSectionVisibility}
+                onClick={() => {
+                    jobSearchSectionRef.current &&
+                        jobSearchSectionRef.current.classList.toggle(
+                            "translate-in"
+                        );
+                    setJobSectionVisibility(true);
+                }}
+            >
+                <i className="fa-solid fa-magnifying-glass-plus" />
+            </button>
+
+            <section
+                id="job-view"
+                ref={jobSearchSectionRef}
+                className="section--job-view"
+            >
                 {/* <h1>{props?.user?.name ?? "____"}'s Job View</h1> */}
+                <button
+                    className="job-search--close"
+                    aria-controls="job-view"
+                    aria-expanded={jobSectionVisibility}
+                    onClick={() => {
+                        jobSearchSectionRef.current &&
+                            jobSearchSectionRef.current.classList.toggle(
+                                "translate-in"
+                            );
+                        setJobSectionVisibility(false);
+                    }}
+                >
+                    <i className="fa-solid fa-circle-xmark job-search-toggle" />
+                </button>
+
                 {props.children}
 
                 {props.jobSearchResponse?.results.length ? (
@@ -355,14 +392,27 @@ function App(props: AppProps) {
                             )}
                         </ul>
                     </>
-                ) : null}
+                ) : (
+                    <div className="placeholder">
+                        <p>
+                            <i
+                                role="presentation"
+                                className="fa-solid fa-magnifying-glass-plus"
+                            />{" "}
+                            {props.jobSearchResponse &&
+                            props.jobSearchResponse?.results.length === 0
+                                ? "Your search returned 0 results"
+                                : "Job search results will appear here..."}
+                        </p>
+                    </div>
+                )}
             </section>
 
             <section className="note-view">
-                <h2>Note View</h2>
+                {/* <h2>Note View</h2> */}
 
                 <div className="note-view__editor">
-                    <ul role="nav" className="note-view__editor__nav-items">
+                    {/* <ul role="nav" className="note-view__editor__nav-items">
                         <li>
                             <button className="button-icon">
                                 <i className="fa-solid fa-file-pen" />
@@ -388,7 +438,7 @@ function App(props: AppProps) {
                                 <i className="fa-solid fa-download" />
                             </button>
                         </li>
-                    </ul>
+                    </ul> */}
 
                     <Excalidraw
                         ref={(api) =>
@@ -403,10 +453,3 @@ function App(props: AppProps) {
 }
 
 export default App;
-
-/*==============================================================================
-
-[1] info: Make readonly type definitions writeable
-    link: https://stackoverflow.com/a/43001581
-
-==============================================================================*/
