@@ -1,0 +1,41 @@
+{
+    "name": "jarb",
+    "version": "1.0.0",
+    "description": "A job board & note taking app",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/mattxmade/jarb.git"
+    },
+    "keywords": [],
+    "author": "mattxmade",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/mattxmade/jarb/issues"
+    },
+    "homepage": "https://github.com/mattxmade/jarb#readme",
+    "devDependencies": {
+        "@types/react": "^18.2.14",
+        "@types/react-dom": "^18.2.6",
+        "@vitejs/plugin-react": "^4.0.3",
+        "axios": "^1.1.2",
+        "laravel-vite-plugin": "^0.7.5",
+        "sass": "^1.63.6",
+        "typescript": "^5.1.6",
+        "vite": "^4.0.0"
+    },
+    "dependencies": {
+        "@excalidraw/excalidraw": "^0.15.2",
+        "@inertiajs/react": "^1.0.9",
+        "nanoid": "^4.0.2",
+        "open-color": "^1.9.1",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "roughjs": "^4.5.2"
+    }
+}
