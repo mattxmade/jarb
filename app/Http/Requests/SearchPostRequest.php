@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Rules\WordsFilter;
+use App\Rules\WordsFilterRule;
 
 class SearchPostRequest extends FormRequest
 {
@@ -26,9 +26,9 @@ class SearchPostRequest extends FormRequest
         return [
           'id' => 'required|max:21',
           'query' => 'required',
-          'keywords' => ['bail', 'sometimes', new WordsFilter],
-          'locationName' => ['bail', 'sometimes', new WordsFilter],
-          'employerProfileId' => ['bail', 'sometimes', new WordsFilter],
+          'keywords' => ['bail', 'sometimes', new WordsFilterRule],
+          'locationName' => ['bail', 'sometimes', new WordsFilterRule],
+          'employerProfileId' => ['bail', 'sometimes', new WordsFilterRule],
         ];
     }
 }
