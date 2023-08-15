@@ -228,6 +228,25 @@ const useExcalidraw = () => {
         }, 10);
     }, [viewText]);
 
+    // Accessibility
+    if (excalidrawAPI?.ready) {
+        const dropdownMenuBtn = document.querySelector(".dropdown-menu-button");
+
+        dropdownMenuBtn &&
+            !dropdownMenuBtn.ariaLabel &&
+            (dropdownMenuBtn.ariaLabel = "Excalidraw dropdown menu button");
+
+        const toolIconRadioBtns = document.querySelectorAll(
+            ".ToolIcon_type_radio"
+        );
+
+        toolIconRadioBtns.length &&
+            toolIconRadioBtns.forEach((radioBtn, i) => {
+                if (radioBtn.id.includes("undefined"))
+                    radioBtn.id = radioBtn.id.slice(0, -"undefined".length) + i;
+            });
+    }
+
     return { setExcalidrawAPI, captureOnChange, handleTextSelection };
 };
 
