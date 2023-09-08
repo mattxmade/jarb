@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Excalidraw } from "@excalidraw/excalidraw"; // TODO => lazy-load Excalidraw
+import { Excalidraw, WelcomeScreen } from "@excalidraw/excalidraw"; // TODO => lazy-load Excalidraw
 import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
 
 import { ReedSearchResponse } from "../types";
 import useExcalidraw from "../hooks/useExcalidraw";
+
+import content from "../../content/content.json";
 
 type AppProps = {
     jobSearchResponse?: ReedSearchResponse;
@@ -184,7 +186,16 @@ function App(props: AppProps) {
                             setExcalidrawAPI(api as ExcalidrawImperativeAPI)
                         }
                         onChange={captureOnChange}
-                    />
+                    >
+                        <WelcomeScreen>
+                            <WelcomeScreen.Center>
+                                <WelcomeScreen.Center.Heading>
+                                    {content.excalidraw.heading}
+                                    <p>{content.excalidraw.subheading}</p>
+                                </WelcomeScreen.Center.Heading>
+                            </WelcomeScreen.Center>
+                        </WelcomeScreen>
+                    </Excalidraw>
                 </div>
             </section>
         </div>
