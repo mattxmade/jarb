@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+
 <a href="#"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" alt="laravel-badge"/></a>
 <a href="#"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="react-badge"/></a>
 # <a href="#"><img src="/src/favicon.ico" width="24"/></a> Jarb | <a href="https://github.com/mattxmade/jarb/blob/main/README.md" target="_blank"> <strong>Live</strong></a>
@@ -17,6 +19,37 @@
   <br>
   <a href="#"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" alt="laravel-badge"/></a>
   <a href="#"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="react-badge"/></a>
-  
-  <br>
 </div>
+
+## About
+
+<strong><em>Job Annotation Research Board</em> (Jarb)</strong> is an interactive job board powered by <strong><a href="https://github.com/excalidraw/excalidraw">Excalidraw</a></strong> and <strong><a href="https://www.reed.co.uk/developers/Jobseeker">Reed Jobs API</a></strong>. 
+
+<br>
+
+## Features
+
+<table>
+  <thead>
+  </thead>
+  <tbody>
+    <tr><td colspan=2></td></tr>
+    <tr>
+      <td align=center><strong>Job Search</strong></td>
+      <td>Search and find jobs via robust search form</td>
+    </tr>
+    <tr><td colspan=2></td></tr>
+    <tr>
+      <td align=center><strong>Interactive Canvas</strong></td>
+      <td>Make notes and draw shapes via Excalidraw powered canvas</td>
+    </tr>
+        <tr><td colspan=2></td></tr>
+    <tr>
+      <td align=center><strong>Text Highlighter</strong></td>
+      <td>Quickly highlight text from job posts and autocopy to canvas</td>
+    </tr>
+  </tbody>
+</table>
+
+<br>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
