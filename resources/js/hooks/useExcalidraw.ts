@@ -32,7 +32,7 @@ const useExcalidraw = () => {
     const allowDrawUpdateRef = useRef(false);
 
     const handleTextSelection = useCallback(
-        (e: React.UIEvent<HTMLElement, MouseEvent>) => {
+        (e: React.UIEvent<HTMLElement, PointerEvent>) => {
             const view = e.view as unknown as Window;
 
             const selection = view.getSelection()?.toString();
