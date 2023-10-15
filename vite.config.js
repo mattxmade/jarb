@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
     build: {
+        manifest: true,
         rollupOptions: {
             output: {
                 entryFileNames: `js/[name].js`,
@@ -14,7 +15,7 @@ export default defineConfig({
     },
     plugins: [
         laravel({
-            input: ["resources/css/app.css", "resources/js/index.jsx"],
+            input: ["resources/sass/app.scss", "resources/js/index.jsx"],
             refresh: true,
         }),
         react(),
@@ -22,3 +23,4 @@ export default defineConfig({
 });
 
 // no hash names | https://stackoverflow.com/a/75344943
+// host server   | https://stackoverflow.com/a/75620888
