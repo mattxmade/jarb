@@ -209,7 +209,7 @@ export default function JobSearchForm(props: AppProps) {
                 name="search"
                 style={{
                     transition: "0.4s",
-                    height: showForm ? "763px" : "9rem",
+                    height: showForm ? "784px" : "9rem",
                     overflowY: "hidden",
                 }}
             >
