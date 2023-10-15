@@ -92,22 +92,32 @@ function App(props: AppProps) {
                                     >
                                         <h3
                                             className="job-result-card__job-title"
-                                            onMouseUp={handleTextSelection}
+                                            onPointerUp={handleTextSelection}
                                         >
                                             {jobSearchResult.jobTitle}{" "}
                                             <span
                                                 className="job-result-card__job-id"
-                                                onMouseUp={handleTextSelection}
+                                                onPointerUp={
+                                                    handleTextSelection
+                                                }
                                             >
                                                 {jobSearchResult.jobId}
                                             </span>
                                         </h3>
 
                                         <div className="job-result-card__posted-by-cont">
-                                            <p onMouseUp={handleTextSelection}>
+                                            <p
+                                                onPointerUp={
+                                                    handleTextSelection
+                                                }
+                                            >
                                                 {jobSearchResult.date}{" "}
                                             </p>
-                                            <p onMouseUp={handleTextSelection}>
+                                            <p
+                                                onPointerUp={
+                                                    handleTextSelection
+                                                }
+                                            >
                                                 {jobSearchResult.employerName}
                                             </p>
                                         </div>
@@ -116,7 +126,9 @@ function App(props: AppProps) {
                                         jobSearchResult.maximumSalary ? (
                                             <p
                                                 className="job-result-card__salary"
-                                                onMouseUp={handleTextSelection}
+                                                onPointerUp={
+                                                    handleTextSelection
+                                                }
                                             >
                                                 <i className="fa-solid fa-hand-holding-dollar" />{" "}
                                                 {`£${jobSearchResult.minimumSalary}-£${jobSearchResult.maximumSalary}`}
@@ -125,24 +137,32 @@ function App(props: AppProps) {
 
                                         <p
                                             className="job-result-card__location"
-                                            onMouseUp={handleTextSelection}
+                                            onPointerUp={handleTextSelection}
                                         >
                                             <i className="fa-solid fa-location-dot" />{" "}
                                             {jobSearchResult.locationName}
                                         </p>
                                         <p
                                             className="job-result-card__description"
-                                            onMouseUp={handleTextSelection}
+                                            onPointerUp={handleTextSelection}
                                         >
                                             {jobSearchResult.jobDescription}
                                         </p>
 
                                         <div className="job-result-card__etc-details-cont">
-                                            <p onMouseUp={handleTextSelection}>
+                                            <p
+                                                onPointerUp={
+                                                    handleTextSelection
+                                                }
+                                            >
                                                 Expires:{" "}
                                                 {jobSearchResult.expirationDate}
                                             </p>
-                                            <p onMouseUp={handleTextSelection}>
+                                            <p
+                                                onPointerUp={
+                                                    handleTextSelection
+                                                }
+                                            >
                                                 Applications:{" "}
                                                 {jobSearchResult.applications}
                                             </p>
