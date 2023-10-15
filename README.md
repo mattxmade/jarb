@@ -1,8 +1,8 @@
 <a href="#"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" alt="laravel-badge"/></a>
 <a href="#"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="react-badge"/></a>
-# <a href="#"><img src="/src/favicon.ico" width="24"/></a> JARB | <a href="https://github.com/mattxmade/jarb/blob/main/README.md" target="_blank"> <strong>Live</strong></a>
+# <a href="#"><img src="/src/favicon.ico" width="24"/></a> Jarb | <a href="https://github.com/mattxmade/jarb/blob/main/README.md" target="_blank"> <strong>Live</strong></a>
 
-> ### Job Assessment Research Board
+> ### Job Annoation Research Board
 
 <br>
 <div align="center">
