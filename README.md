@@ -52,4 +52,19 @@
 </table>
 
 <br>
+
+##
+
+### Build Tools
+
+<a href="#"><img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="vite-badge"/></a>
+
+### Developer Tools
+
+<a href="#"><img src="https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white" alt="npm-badge"/></a>
+<a href="#"><img src="https://img.shields.io/badge/composer-%23624B2C.svg?style=for-the-badge&logo=composer&logoColor=white" alt="composer-badge"/></a>
+<a href="#"><img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="vscode-badge"/></a>
+
+<br>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
