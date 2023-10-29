@@ -1,0 +1,172 @@
+/*=======================
+  Excalidraw: Overrides
+=========================*/
+.excalidraw {
+    --lg-button-size: 3rem !important;
+
+    label {
+        gap: 0 !important;
+        width: inherit !important;
+    }
+
+    .FixedSideContainer {
+        padding-left: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        padding-right: 0 !important;
+        box-shadow: inset 0 0 0.2rem 0.2rem grey;
+    }
+
+    .FixedSideContainer > * {
+        width: 100% !important;
+        padding: 0 !important;
+    }
+
+    .FixedSideContainer_side_top {
+        inset: 0 !important;
+        height: 0;
+    }
+
+    .dropdown-menu .dropdown-menu-item {
+        height: 3rem !important;
+    }
+    .dropdown-menu-button svg {
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+    .dropdown-menu .dropdown-menu-item svg {
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+    .dropdown-menu .dropdown-menu-item__text {
+        font-size: 1.2rem !important;
+    }
+
+    .shapes-section {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 10%);
+        justify-content: flex-start !important;
+    }
+
+    .ToolIcon__icon {
+        width: 3rem !important;
+        height: 3rem !important;
+    }
+
+    .ToolIcon__icon svg {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+    }
+
+    .ToolIcon__keybinding {
+        font-size: 1.5rem !important;
+        bottom: 35px !important;
+        right: 13px !important;
+    }
+
+    // buttons | bottom-left
+    .zoom-button,
+    .undo-redo-buttons button {
+        height: 3rem !important;
+        width: fit-content !important;
+        font-size: 1.4rem !important;
+    }
+
+    // buttons | bottom-right > help-button
+    .help-icon {
+        width: 4rem !important;
+        height: 4rem !important;
+
+        svg {
+            width: inherit !important;
+            height: inherit !important;
+        }
+    }
+
+    .context-menu,
+    .dropdown-menu-group,
+    .layer-ui__wrapper__top-right {
+        display: none !important;
+    }
+
+    .App-menu_top {
+        margin: 2rem !important;
+    }
+
+    .App-menu__left {
+        width: min(97.5%, 76rem) !important;
+
+        left: 50% !important;
+        bottom: 8rem !important;
+
+        transform: translate(-50%, 0);
+    }
+
+    .panelColumn {
+        flex-direction: row !important;
+        gap: 0.75rem !important;
+    }
+
+    .library-button svg {
+        display: flex;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    @media (max-width: 1203px) {
+        height: 100vh;
+    }
+
+    @media (max-width: 729px) {
+        .Stack_vertical {
+            top: 2rem !important;
+            position: relative;
+        }
+
+        .mobile-misc-tools-container {
+            top: 6rem !important;
+            right: 1rem !important;
+
+            display: grid;
+            justify-items: center;
+
+            border-radius: 0.5rem !important;
+            border: 0.1rem solid rgb(235, 235, 235) !important;
+            box-shadow: var(--box-shadow--outer) !important;
+        }
+    }
+}
+
+.App-bottom-bar {
+    top: auto !important;
+    height: fit-content !important;
+}
+
+.excalidraw .welcome-screen-center {
+    margin-top: 0 !important;
+    height: 100vh !important;
+}
+
+.excalidraw .welcome-screen-center__heading {
+    font-size: 5rem !important;
+    font-family: "Major Mono Display", monospace !important;
+
+    p {
+        margin-top: 1rem;
+        text-align: center;
+        word-spacing: 3rem;
+    }
+}
+
+.excalidraw .welcome-screen-menu-item {
+    gap: 1rem;
+    font-size: 1.6rem;
+    place-items: flex-start;
+
+    &__icon {
+        width: 2rem;
+        height: auto;
+        margin-right: 1rem;
+    }
+}
