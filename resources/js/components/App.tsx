@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Excalidraw, WelcomeScreen } from "@excalidraw/excalidraw"; // TODO => lazy-load Excalidraw
 import { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types/types";
 
@@ -6,9 +6,13 @@ import { ReedSearchResponse } from "../types";
 import useExcalidraw from "../hooks/useExcalidraw";
 
 import content from "../../content/content.json";
+import JobResultsHeader from "./JobResultsHeader";
 
 type AppProps = {
+    status: string;
+    pageNum: number;
     jobSearchResponse?: ReedSearchResponse;
+    handleStatus: (status: string, source: string, direction: string) => void;
     children?: React.ReactNode;
 };
 
@@ -76,13 +80,16 @@ function App(props: AppProps) {
 
                 {props.children}
 
-                {props.jobSearchResponse?.results.length ? (
+                {props.jobSearchResponse?.results.length &&
+                props.status !== "pending" ? (
                     <>
-                        <p className="search-results-total">
-                            {props.jobSearchResponse.totalResults === 1
-                                ? "1 result"
-                                : `${props.jobSearchResponse.totalResults} results`}
-                        </p>
+                        <JobResultsHeader
+                            status={props.status}
+                            pageNum={props.pageNum}
+                            totalResults={props.jobSearchResponse.totalResults}
+                            handleStatus={props.handleStatus}
+                        />
+
                         <ul className="job-search-results">
                             {props.jobSearchResponse.results.map(
                                 (jobSearchResult) => (
@@ -184,14 +191,27 @@ function App(props: AppProps) {
                 ) : (
                     <div className="placeholder">
                         <p>
-                            <i
-                                role="presentation"
-                                className="fa-solid fa-magnifying-glass-plus"
-                            />{" "}
-                            {props.jobSearchResponse &&
-                            props.jobSearchResponse?.results.length === 0
-                                ? "Your search returned 0 results"
-                                : "Job search results will appear here..."}
+                            {props.status !== "pending" ? (
+                                <Fragment>
+                                    <i
+                                        role="presentation"
+                                        className="fa-solid fa-magnifying-glass-plus"
+                                    />{" "}
+                                    {props.jobSearchResponse &&
+                                    props.jobSearchResponse?.results.length ===
+                                        0
+                                        ? "Your search returned 0 results"
+                                        : "Job search results will appear here"}
+                                </Fragment>
+                            ) : (
+                                <Fragment>
+                                    <i
+                                        role="presentation"
+                                        className="fa-solid fa-spinner spinner"
+                                    />{" "}
+                                    Fetching job results...
+                                </Fragment>
+                            )}
                         </p>
                     </div>
                 )}
