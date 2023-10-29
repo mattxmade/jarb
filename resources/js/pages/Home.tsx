@@ -5,7 +5,9 @@ import { JobSearchFields, JobSearchResult, ReedSearchResponse } from "../types";
 import App from "../components/App";
 import { meta } from "../../content/content.json";
 
-import JobSearchForm from "../components/JobSearchForm";
+import JobSearchForm, {
+    restoreSearchFields,
+} from "../components/JobSearchForm";
 import useLoadscreen from "../hooks/useLoadscreen";
 import { useCallback, useRef, useState } from "react";
 
@@ -38,22 +40,104 @@ export default function Home(props: AppProps) {
     const results = props.searchResponse || resultsCache || undefined;
 
     const [status, setStatus] = useState(() => restoreItem("status", "ready"));
+    const source = useRef(restoreItem("source", ""));
+
+    const pageNum = useRef(restoreItem("pageNum", 1));
 
     const handleStatus = useCallback(
-        (status: string) => {
+        (status: string, src: string, direction?: string) => {
+            const totalNumberOfPages =
+                !results || results.totalResults === 0
+                    ? 0
+                    : (results.totalResults / 25).toString().includes(".")
+                    ? +(results.totalResults / 25).toFixed()
+                    : results.totalResults / 25;
+
             setStatus(status);
-            router.remember("status", status);
+
+            if (src === "search") {
+                pageNum.current = 1;
+
+                router.remember("status", status);
+                router.remember("source", src);
+                router.remember(pageNum.current, "pageNum");
+            }
+
+            if (src === "page") {
+                const postafter = setTimeout(() => {
+                    clearTimeout(postafter);
+
+                    const searchFields =
+                        restoreSearchFields() as JobSearchFields;
+
+                    const pagination =
+                        direction === "next"
+                            ? pageNum.current + 1
+                            : pageNum.current - 1;
+
+                    if (
+                        !searchFields ||
+                        pagination > totalNumberOfPages ||
+                        pagination < 1
+                    ) {
+                        setStatus("ready");
+                        source.current = "";
+
+                        router.remember("status", "ready");
+                        router.remember("source", src);
+                        return;
+                    }
+
+                    pageNum.current = pagination;
+
+                    let resultsToSkip = router.restore(
+                        "resultsToSkip"
+                    ) as number;
+
+                    !resultsToSkip
+                        ? (resultsToSkip = 25)
+                        : direction === "next"
+                        ? (resultsToSkip += 25)
+                        : (resultsToSkip -= 25);
+
+                    searchFields.resultsToSkip = resultsToSkip;
+
+                    if (searchFields.query.includes("resultsToSkip")) {
+                        searchFields.query = searchFields.query.slice(
+                            0,
+                            searchFields.query.lastIndexOf("&")
+                        );
+                    }
+
+                    searchFields.query += "&resultsToSkip=" + resultsToSkip;
+
+                    router.remember(
+                        JSON.stringify(searchFields),
+                        "searchFields"
+                    );
+                    router.remember(true, "minimiseForm");
+                    router.remember(pageNum.current, "pageNum");
+                    router.remember(resultsToSkip, "resultsToSkip");
+
+                    router.post("/", searchFields);
+                }, 10);
+            }
         },
-        [status]
+        [status, results]
     );
 
     const onLoad = setTimeout(() => {
         clearTimeout(onLoad);
         if (results && status === "pending") setStatus("ready");
-    }, 1000);
+    }, 1500);
 
     return (
-        <App jobSearchResponse={results} status={status}>
+        <App
+            jobSearchResponse={results}
+            status={status}
+            pageNum={pageNum.current}
+            handleStatus={handleStatus}
+        >
             <Head>
                 <title>{meta.title}</title>
                 <meta name={meta.name} content={meta.content} />
