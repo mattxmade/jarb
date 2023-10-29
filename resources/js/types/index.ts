@@ -1,3 +1,19 @@
+export type Content = {
+    excalidraw: {
+        heading: string;
+        subheading: string;
+    };
+    loading?: {
+        heading: string;
+        subheading: string;
+        format?: {
+            acronym: boolean;
+            gap: "all" | "middle" | "none";
+            fill: "string";
+        };
+    };
+};
+
 export type FormInputError = {
     [index: string]: any;
     input: string;
@@ -54,6 +70,8 @@ export type JobSearchFields = {
 
     postedByDirectEmployer?: boolean;
     postedByRecruitmentAgency?: boolean;
+
+    resultsToSkip: number;
 };
 
 // Reed API | https://www.reed.co.uk/developers/Jobseeker
