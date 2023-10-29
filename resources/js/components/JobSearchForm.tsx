@@ -11,13 +11,14 @@ import {
 
 import { wordsFilter, isTextInputAaZz } from "../utils/inputValidators";
 
-const restoreSearchFields = () => {
+export const restoreSearchFields = () => {
     const values = router.restore("searchFields");
     return typeof values === "string" ? JSON.parse(values) : values;
 };
 
 type AppProps = {
     jobDetailsResponse?: any;
+    handleStatus: (status: string, source: string) => void;
     searchResponse?: ReedSearchResponse;
 };
 
@@ -142,20 +143,32 @@ export default function JobSearchForm(props: AppProps) {
             if (!newQuery.length || !canSearch) return;
             // TODO: alert user if all fields are empty
 
-            newQuery = newQuery.endsWith("&")
-                ? newQuery.slice(0, newQuery.length - 1)
-                : newQuery;
+            // set status to pending | triggers spinner icon
+            props.handleStatus("pending", "search");
+            setShowForm(false);
 
-            searchFields.id = nanoid();
-            searchFields.query = newQuery;
+            // move post to end of queue stack | priorities status update
+            const postafter = setTimeout(() => {
+                clearTimeout(postafter);
 
-            router.remember(JSON.stringify(searchFields), "searchFields");
-            router.remember(true, "minimiseForm");
+                searchFields.resultsToSkip = 0;
+                newQuery += `resultsToSkip=${0}&`;
 
-            setValues(searchFields);
-            setFormErrorMessages([]);
+                newQuery = newQuery.endsWith("&")
+                    ? newQuery.slice(0, newQuery.length - 1)
+                    : newQuery;
 
-            router.post("/", searchFields);
+                searchFields.id = nanoid();
+                searchFields.query = newQuery;
+
+                router.remember(JSON.stringify(searchFields), "searchFields");
+                router.remember(true, "minimiseForm");
+
+                setValues(searchFields);
+                setFormErrorMessages([]);
+
+                router.post("/", searchFields);
+            }, 10);
         },
         [formRef, values, setValues]
     );
