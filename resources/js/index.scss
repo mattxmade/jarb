@@ -1,0 +1,287 @@
+.container {
+    flex: auto;
+    margin: 0 auto;
+
+    width: 100%;
+    max-width: 200rem;
+    min-height: 100vh;
+
+    display: flex;
+
+    section {
+        padding: 2rem 0 2rem 2rem;
+
+        @media (max-width: 1203px) {
+            padding: 3rem 2rem 2rem;
+        }
+    }
+
+    section:last-child {
+        padding-right: 2rem;
+        width: 100%;
+        flex: auto;
+
+        @media (max-width: 1203px) {
+            padding: 0;
+        }
+    }
+}
+
+/*=====================
+  Section: JobView =>                                                           https://stackoverflow.com/a/66166118
+=======================*/
+.job-search--open,
+.job-search--close {
+    display: none;
+
+    @media (max-width: 1203px) {
+        z-index: 5;
+        display: flex;
+        position: fixed;
+    }
+}
+
+.job-search--open {
+    top: 1rem;
+    right: 1rem;
+
+    padding: 0.9rem;
+    border-radius: 0.5rem;
+    border: 0.1rem solid rgb(235, 235, 235);
+    box-shadow: var(--box-shadow--outer);
+    background-color: rgb(0, 206, 209, 0.3);
+
+    @media (max-width: 729px) {
+        top: 18rem;
+    }
+}
+.job-search--open:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.job-search--close {
+    top: 1.5rem;
+    right: 1rem;
+
+    color: rgb(100, 100, 100);
+    border-radius: var(--border-radius);
+}
+.job-search--close:hover {
+    color: black;
+}
+
+.section--job-view {
+    width: 64rem;
+    height: 100vh;
+    overflow: hidden;
+
+    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 1203px) {
+        z-index: 5;
+        width: 100%;
+        height: 100%;
+
+        top: 0;
+        left: 0;
+        position: absolute;
+        background-color: darkturquoise;
+        box-shadow: 0 0 0.5rem 0.1rem rgb(0, 0, 0, 0.7);
+
+        transition: 0.3s;
+        transform: translate(-100%, 0);
+    }
+
+    @media (max-height: 900px) {
+        height: 100vh;
+        overflow-y: scroll;
+    }
+}
+
+.translate-in {
+    transform: translate(0, 0);
+}
+
+/*==========================
+  Section: JobView => Form
+===========================*/
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#job-search-form {
+    padding: 1rem calc(var(--padding) / 3) 0;
+    border: var(--border);
+    border-radius: var(--border-radius);
+    background-color: rgb(0, 0, 0, 0.1);
+    box-shadow: var(--box-shadow--inner);
+}
+
+fieldset {
+    margin-bottom: 1rem;
+    display: grid;
+    padding: 1rem 2rem;
+    border-radius: var(--border-radius);
+
+    @media (max-height: 806px) {
+        padding: 1rem 0;
+    }
+}
+
+legend {
+    color: rgb(0, 0, 0, 0.75);
+    font-weight: bold;
+    padding: 0 calc(var(--padding) / 4);
+}
+
+label {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    width: calc(100% - 1rem);
+
+    p {
+        height: fit-content;
+        width: 8rem;
+        text-align: right;
+    }
+
+    p > span {
+        font-weight: bold;
+        color: red;
+    }
+
+    input,
+    select {
+        padding: 0.5rem;
+    }
+
+    input,
+    select,
+    p {
+        margin-bottom: 1rem;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        flex: auto;
+    }
+}
+
+/*===================================
+  Section: JobView => searchResults
+=====================================*/
+.placeholder {
+    flex: auto;
+    border: var(--border);
+    border-radius: var(--border-radius);
+
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    p {
+        font-weight: bold;
+        color: rgb(60, 60, 60); // rgb(110, 110, 110);
+    }
+}
+
+.spinner {
+    -webkit-animation: 3s infinite normal rotate;
+    animation: 3s infinite normal rotate;
+}
+
+.search-results-total {
+    font-weight: bold;
+}
+
+.job-search-results {
+    flex: auto;
+    overflow: auto;
+
+    gap: 2rem;
+    display: grid;
+}
+
+.job-result-card {
+    gap: 0.75rem;
+    display: grid;
+
+    margin-right: 0.5rem;
+    padding: 1.5rem 1rem;
+    border: var(--border);
+
+    &__job-title,
+    &__posted-by-cont,
+    &__etc-details-cont {
+        display: flex;
+    }
+
+    &__job-title,
+    &__etc-details-cont {
+        justify-content: space-between;
+    }
+
+    &__posted-by-cont,
+    &__etc-details-cont {
+        font-weight: 600;
+    }
+
+    &__posted-by-cont {
+        gap: 2rem;
+    }
+
+    &__description {
+        margin: 1rem 0;
+    }
+}
+
+/*==========================
+  Section: NoteView
+===========================*/
+main canvas {
+    border-radius: var(--border-radius);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.note-view__editor {
+    height: 100%; // canvas only
+
+    border-radius: var(--border-radius);
+
+    &__nav-items {
+        width: fit-content;
+        height: fit-content;
+        justify-self: flex-end;
+
+        display: flex;
+        gap: 1rem;
+
+        padding: calc(var(--padding) / 5);
+        background-color: darkslategrey;
+        border-radius: var(--border-radius);
+
+        li {
+            display: flex;
+            justify-content: center;
+
+            > button {
+                color: whitesmoke;
+            }
+        }
+    }
+
+    background-color: whitesmoke;
+}
+
+.button-icon {
+    min-width: 3rem;
+    min-height: 3rem;
+
+    padding: calc(var(--padding) / 4);
+    border-radius: var(--border-radius);
+}
