@@ -22,7 +22,7 @@ class AppController extends Controller
     $query = $request["query"];
     $apiKey = config('services.reedjobs.key');
 
-    $response = Http::withBasicAuth($apiKey, '')->get("https://www.reed.co.uk/api/1.0/search?$query&resultsToTake=5");
+    $response = Http::withBasicAuth($apiKey, '')->get("https://www.reed.co.uk/api/1.0/search?$query&resultsToTake=25");
 
     return Inertia::render('Home', [
       'searchResponse' => $response->json(),
