@@ -1,4 +1,10 @@
 <div class="loading-screen">
+  <h1>
+    @foreach($html as $element)
+      {!! $element !!}
+    @endforeach
+  </h1>
+
   <svg class="loading-screen__spinner" 
     viewBox="0 0 512 512"
   >
