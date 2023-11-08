@@ -18,7 +18,7 @@ class Loadscreen extends Component
     /**
      * Loadscreen HTML elements.
      *
-     * @var araay
+     * @var array
      */
     public $html = array();
 
