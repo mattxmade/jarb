@@ -64,63 +64,53 @@ export default function Home(props: AppProps) {
             }
 
             if (src === "page") {
-                const postafter = setTimeout(() => {
-                    clearTimeout(postafter);
+                const searchFields = restoreSearchFields() as JobSearchFields;
 
-                    const searchFields =
-                        restoreSearchFields() as JobSearchFields;
+                const pagination =
+                    direction === "next"
+                        ? pageNum.current + 1
+                        : pageNum.current - 1;
 
-                    const pagination =
-                        direction === "next"
-                            ? pageNum.current + 1
-                            : pageNum.current - 1;
+                if (
+                    !searchFields ||
+                    pagination > totalNumberOfPages ||
+                    pagination < 1
+                ) {
+                    setStatus("ready");
+                    source.current = "";
 
-                    if (
-                        !searchFields ||
-                        pagination > totalNumberOfPages ||
-                        pagination < 1
-                    ) {
-                        setStatus("ready");
-                        source.current = "";
+                    router.remember("status", "ready");
+                    router.remember("source", src);
+                    return;
+                }
 
-                        router.remember("status", "ready");
-                        router.remember("source", src);
-                        return;
-                    }
+                pageNum.current = pagination;
 
-                    pageNum.current = pagination;
+                let resultsToSkip = router.restore("resultsToSkip") as number;
 
-                    let resultsToSkip = router.restore(
-                        "resultsToSkip"
-                    ) as number;
+                !resultsToSkip
+                    ? (resultsToSkip = 25)
+                    : direction === "next"
+                    ? (resultsToSkip += 25)
+                    : (resultsToSkip -= 25);
 
-                    !resultsToSkip
-                        ? (resultsToSkip = 25)
-                        : direction === "next"
-                        ? (resultsToSkip += 25)
-                        : (resultsToSkip -= 25);
+                searchFields.resultsToSkip = resultsToSkip;
 
-                    searchFields.resultsToSkip = resultsToSkip;
-
-                    if (searchFields.query.includes("resultsToSkip")) {
-                        searchFields.query = searchFields.query.slice(
-                            0,
-                            searchFields.query.lastIndexOf("&")
-                        );
-                    }
-
-                    searchFields.query += "&resultsToSkip=" + resultsToSkip;
-
-                    router.remember(
-                        JSON.stringify(searchFields),
-                        "searchFields"
+                if (searchFields.query.includes("resultsToSkip")) {
+                    searchFields.query = searchFields.query.slice(
+                        0,
+                        searchFields.query.lastIndexOf("&")
                     );
-                    router.remember(true, "minimiseForm");
-                    router.remember(pageNum.current, "pageNum");
-                    router.remember(resultsToSkip, "resultsToSkip");
+                }
 
-                    router.post("/", searchFields);
-                }, 10);
+                searchFields.query += "&resultsToSkip=" + resultsToSkip;
+
+                router.remember(JSON.stringify(searchFields), "searchFields");
+                router.remember(true, "minimiseForm");
+                router.remember(pageNum.current, "pageNum");
+                router.remember(resultsToSkip, "resultsToSkip");
+
+                router.post("/", searchFields);
             }
         },
         [status, results]
