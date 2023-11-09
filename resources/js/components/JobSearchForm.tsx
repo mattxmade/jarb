@@ -181,6 +181,10 @@ export default function JobSearchForm(props: AppProps) {
         setShowForm(!showForm);
     };
 
+    /* :: Disabled! ::
+    // Causes rerender in production mode
+    // Ok in strict mode as Components rendered twice
+
     if (props.searchResponse?.results && router.restore("minimiseForm")) {
         router.remember(undefined, "minimiseForm");
 
@@ -191,6 +195,7 @@ export default function JobSearchForm(props: AppProps) {
             toggleFormView();
         }, 0);
     }
+    */
 
     return (
         <div>
