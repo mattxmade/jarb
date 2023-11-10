@@ -1,7 +1,7 @@
 {
     "name": "jarb",
     "version": "1.0.0",
-    "description": "A job board & note taking app",
+    "description": "Job Annotation Research Board.",
     "private": true,
     "type": "module",
     "scripts": {
