@@ -29,7 +29,7 @@ Application backend is written in <strong>PHP</strong> and built using the <stro
 
 <strong>Inertia.js</strong> is used to bridge across these architectures.
 
-## Features
+## 📝 Features
 
 <table>
   <thead>
@@ -55,7 +55,7 @@ Application backend is written in <strong>PHP</strong> and built using the <stro
 
 <br>
 
-## Server
+## 🔬 Server Overview
 ### API services
 
 Form submissions are sent by **HTTP POST** request and handled server side via controller. 
@@ -131,8 +131,7 @@ public function handle($request, Closure $next)
 
 <br>
 
-## Client
-
+## 🔬 Client Overview
 ### React UI Components
 #### Excalidraw
 
