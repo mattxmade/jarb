@@ -194,10 +194,4 @@ Within Jarb, text can be highlighted from any job post and copied directly to th
 <a href="#"><img src="https://img.shields.io/badge/composer-%23624B2C.svg?style=for-the-badge&logo=composer&logoColor=white" alt="composer-badge"/></a>
 <a href="#"><img src="https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white" alt="vscode-badge"/></a>
 
-##
-
-### Deployment
-
-<a href="#"><img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white" alt="vercel-badge"/></a>
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
