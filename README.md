@@ -2,7 +2,7 @@
 
 <a href="#"><img src="https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white" alt="laravel-badge"/></a>
 <a href="#"><img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="react-badge"/></a>
-# <a href="#"><img src="/docs/icon.svg" width="24"/></a> Jarb | <a href="https://github.com/mattxmade/jarb/blob/main/README.md" target="_blank"> <strong>Live</strong></a>
+# <img src="/docs/icon.svg" width="24"/> Jarb
 
 > ### Job Annotation Research Board
 
